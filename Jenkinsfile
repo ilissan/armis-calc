@@ -6,7 +6,6 @@ node {
         // Get the Maven tool.         
         mvnHome = tool 'maven-3.5'
         // Get version from pom
-        def pom = readMavenPom file: 'pom.xml'
         def version = pom.version.replace("-SNAPSHOT", ".${currentBuild.number}")
     }
     stage('Build') {
