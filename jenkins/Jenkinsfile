@@ -27,11 +27,12 @@ pipeline {
         }
         stage('Archive artifacts') {
             steps {
-                archive 'target/*.jar'
+                archiveArtifacts 'target/*.jar'
             }
         }
         stage('Deliver') { 
             steps {
+                sh 'chown 1000 -R ./jenkins'
                 sh './jenkins/scripts/deploy.sh' 
             }
         }
