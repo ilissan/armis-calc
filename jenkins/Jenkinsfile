@@ -1,34 +1,35 @@
-node {
-    def mvnHome
-    stage('Checkout') { // for display purposes
-        // Get some code from a GitHub repository
-        git 'https://github.com/ilissan/armis-calc.git'
-        // Get the Maven tool.         
-        mvnHome = tool 'maven-3.5'
-        // Get version from pom
-        //def version = pom.version.replace("-SNAPSHOT", ".${currentBuild.number}")
+pipeline {
+    agent any
+    tools {
+        maven 'maven-3.5' 
     }
-    stage('Build') {
-        steps {
-            sh 'mvn -B -DskipTests clean package'
+    stages {
+        stage('Checkout') {
+            // Get some code from a GitHub repository
+            git 'https://github.com/ilissan/armis-calc.git'
         }
-    }
-    stage('Test') { 
-        steps {
-            sh 'mvn test' 
-        }
-        post {
-            always {
-                junit 'target/surefire-reports/TEST-*.xml' 
+        stage('Build') {
+            steps {
+                sh 'mvn -B -DskipTests clean package'
             }
         }
-    }
-    stage('Archive artifacts') {
-        archive 'target/*.jar'
-    }
-    stage('Deliver') { 
-        steps {
-            sh './jenkins/scripts/deploy.sh' 
+        stage('Test') { 
+            steps {
+                sh 'mvn test' 
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/TEST-*.xml' 
+                }
+            }
+        }
+        stage('Archive artifacts') {
+            archive 'target/*.jar'
+        }
+        stage('Deliver') { 
+            steps {
+                sh './jenkins/scripts/deploy.sh' 
+            }
         }
     }
 }
