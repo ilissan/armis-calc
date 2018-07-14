@@ -25,9 +25,9 @@ echo 'application (which Jenkins built using Maven) to the Jenkins UI.'
 set -x
 expected_result='(i=37,j=1,x=6,y=35)'
 IFS=$','
-read -a sorted_arr_exp_rslt <<< $(echo $expected_result | sed 's/[)(]//g')
+read -a sorted_arr_exp_rslt <<< $(echo $expected_result | sed 's/[()]//g')
 # get actual result
-actual_result=$(java -jar target/${NAME}-${VERSION}.jar <<- EOF
+actual_result=$( java -jar target/${NAME}-${VERSION}.jar <<-EOF
 i=0
 j=++i
 x=i+++5
@@ -35,7 +35,7 @@ y=5+3*10
 i+=y
 EOF 2>&1 )
 #convert result into arr and sort
-read -a arr_actual_result <<< $(echo $actual_result | sed 's/[)(]//g')
+read -a arr_actual_result <<< $(echo $actual_result | sed 's/[()]//g')
 sorted_arr_act_rslt=($(sort <<<"${arr_actual_result[*]}"))
 unset IFS
 # compare results
