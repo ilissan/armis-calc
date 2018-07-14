@@ -15,7 +15,7 @@ pipeline {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
-        stage('Test') { 
+        stage('Maven Test') { 
             steps {
                 sh 'mvn test' 
             }
@@ -30,10 +30,10 @@ pipeline {
                 archiveArtifacts 'target/*.jar'
             }
         }
-        stage('Deliver') { 
+        stage('Deploy') { 
             steps {
                 sh 'chmod 0755 ./jenkins/scripts/deploy.sh'
-                sh './jenkins/scripts/deploy.sh' 
+                sh './jenkins/scripts/deploy.sh'
             }
         }
     }
