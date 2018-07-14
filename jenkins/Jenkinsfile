@@ -26,7 +26,9 @@ pipeline {
             }
         }
         stage('Archive artifacts') {
-            archive 'target/*.jar'
+            steps {
+                archive 'target/*.jar'
+            }
         }
         stage('Deliver') { 
             steps {
