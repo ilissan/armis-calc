@@ -5,8 +5,10 @@ pipeline {
     }
     stages {
         stage('Checkout') {
-            // Get some code from a GitHub repository
-            git 'https://github.com/ilissan/armis-calc.git'
+            steps {
+                // Get some code from a GitHub repository
+                git 'https://github.com/ilissan/armis-calc.git'
+            }
         }
         stage('Build') {
             steps {
