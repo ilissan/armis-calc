@@ -38,7 +38,8 @@ EOF
 actual_result=$( echo $( echo $tmp_actual_result | sed 's/.*\.//') | sed '/^[[:space:]]*$/d')
 # convert result into arr and sort
 IFS=',' read -a arr_actual_result <<< "$( echo $actual_result | tr -d '()' )"
-sorted_arr_act_rslt=("$(sort <<<"${arr_actual_result[*]}")")
+IFS=$'\n' sorted_arr_act_rslt=($(sort <<<"${arr_actual_result[*]}"))
+unset IFS
 # show arrays
 set +x
 echo '=============expected=============='
