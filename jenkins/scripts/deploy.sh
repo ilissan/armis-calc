@@ -36,7 +36,7 @@ i+=y
 EOF
 )
 # remove redundant strings from output
-actual_result=$(echo $tmp_actual_result | sed 's/.*[[:space:]]//')
+actual_result=$(echo $tmp_actual_result | sed 's/.*\.//')
 # convert result into arr and sort
 read -a arr_actual_result <<< "$(echo $actual_result | sed 's/[()]//g')"
 sorted_arr_act_rslt=("$(sort <<<"${arr_actual_result[*]}")")
