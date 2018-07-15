@@ -50,7 +50,7 @@ echo '==================================='
 # compare results
 [ ${#sorted_arr_exp_rslt[*]} != ${#sorted_arr_act_rslt[*]} ] && { echo arrays different size; exit 1; }
 for ii in ${!sorted_arr_exp_rslt[*]}; do
-     [ "${sorted_arr_exp_rslt[$ii]}" == "${sorted_arr_act_rslt[$ii]}" ] || { echo different element $ii; exit 1; }
+    [ "${sorted_arr_exp_rslt[$ii]}" == "${sorted_arr_act_rslt[$ii]}" ] || { echo different element $ii; exit 1; }
 done
 echo arrays identical
 exit 0
