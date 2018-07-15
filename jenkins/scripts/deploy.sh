@@ -24,9 +24,7 @@ echo 'The following command runs and outputs the execution of your Java'
 echo 'application (which Jenkins built using Maven) to the Jenkins UI.'
 set -x
 expected_result='(i=37,j=1,x=6,y=35)'
-IFS=$','
-read -a sorted_arr_exp_rslt <<< "$(echo $expected_result | tr -d '()' )"
-unset IFS
+IFS=',' read -ra sorted_arr_exp_rslt <<< "$(echo $expected_result | tr -d '()' )"
 # get actual result
 tmp_actual_result=$(java -jar target/${NAME}-${VERSION}.jar <<-EOF
 i=0
@@ -39,10 +37,8 @@ EOF
 # remove redundant strings from output
 actual_result=$( echo $( echo $tmp_actual_result | sed 's/.*\.//') | sed '/^[[:space:]]*$/d')
 # convert result into arr and sort
-IFS=$','
-read -a arr_actual_result <<< $( echo $actual_result | tr -d '()' )
+IFS=',' read -ra arr_actual_result <<< "$( echo $actual_result | tr -d '()' )"
 sorted_arr_act_rslt=("$(sort <<<"${arr_actual_result[*]}")")
-unset IFS
 # show arrays
 set +x
 echo '=============expected=============='
